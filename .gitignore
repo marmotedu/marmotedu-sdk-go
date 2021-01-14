@@ -1,0 +1,55 @@
+# Jetbrains IDE
+.idea
+# VSCode
+.vscode
+# LiteIDE
+*.out
+
+# Compiled Object files, Static and Dynamic libs (Shared Objects)    
+*.o    
+*.a    
+*.so
+
+# Vim files https://github.com/github/gitignore/blob/master/Global/Vim.gitignore    
+# swap    
+[._]*.s[a-w][a-z]    
+[._]s[a-w][a-z]    
+
+# temporary    
+.netrwhist    
+*~    
+
+# auto-generated tag files    
+tags
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.bak
+*.log
+
+# Test binary, build with `go test -c`
+*.test
+
+# Output of backend and frontend
+/_output
+/_debug
+
+# Misc
+.DS_Store
+*.env
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# files used by the developer
+.idea.md
+.todo.md
+.note.md
+
+# config files, may contain sensitive information
