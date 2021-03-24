@@ -18,7 +18,9 @@ var (
 	ErrNoContext = errors.New("no context chosen")
 
 	// ErrEmptyConfig defines no configuration has been provided error.
-	ErrEmptyConfig = NewEmptyConfigError("no configuration has been provided, try setting IAM_SERVER_ADDRESS environment variable")
+	ErrEmptyConfig = NewEmptyConfigError(
+		"no configuration has been provided, try setting IAM_SERVER_ADDRESS environment variable",
+	)
 
 	// ErrEmptyServer defines a no server defined error.
 	ErrEmptyServer = errors.New("server has no server defined")
@@ -59,8 +61,10 @@ func IsEmptyConfig(err error) bool {
 type errConfigurationInvalid []error
 
 // errConfigurationInvalid implements error and Aggregate.
-var _ error = errConfigurationInvalid{}
-var _ utilerrors.Aggregate = errConfigurationInvalid{}
+var (
+	_ error                = errConfigurationInvalid{}
+	_ utilerrors.Aggregate = errConfigurationInvalid{}
+)
 
 func newErrConfigurationInvalid(errs []error) error {
 	switch len(errs) {
@@ -133,8 +137,12 @@ func validateServerInfo(serverInfo Server) []error {
 	*/
 	// Make sure CA data and CA file aren't both specified
 	if len(serverInfo.CertificateAuthority) != 0 && len(serverInfo.CertificateAuthorityData) != 0 {
-		validationErrors = append(validationErrors,
-			fmt.Errorf("certificate-authority-data and certificate-authority are both specified. certificate-authority-data will override"))
+		validationErrors = append(
+			validationErrors,
+			fmt.Errorf(
+				"certificate-authority-data and certificate-authority are both specified. certificate-authority-data will override",
+			),
+		)
 	}
 
 	if len(serverInfo.CertificateAuthority) != 0 {

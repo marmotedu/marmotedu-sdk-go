@@ -8,9 +8,8 @@ import (
 	"io/ioutil"
 	"path"
 
-	yaml "gopkg.in/yaml.v3"
-
 	"github.com/marmotedu/component-base/pkg/util/homedir"
+	yaml "gopkg.in/yaml.v3"
 )
 
 // Defines some useful for const variables.

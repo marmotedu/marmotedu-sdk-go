@@ -14,19 +14,21 @@ import (
 // Server contains information about how to communicate with a iam api server.
 type Server struct {
 	LocationOfOrigin string
-	Timeout          time.Duration `yaml:"timeout,omitempty" mapstructure:"timeout,omitempty"`
-	MaxRetries       int           `yaml:"max-retries,omitempty" mapstructure:"max-retries,omitempty"`
-	RetryInterval    time.Duration `yaml:"retry-interval,omitempty" mapstructure:"retry-interval,omitempty"`
-	Address          string        `yaml:"address,omitempty" mapstructure:"address,omitempty"`
-	// TLSServerName is used to check server certificate. If TLSServerName is empty, the hostname used to contact the server is used.
+	Timeout          time.Duration `yaml:"timeout,omitempty"                    mapstructure:"timeout,omitempty"`
+	MaxRetries       int           `yaml:"max-retries,omitempty"                mapstructure:"max-retries,omitempty"`
+	RetryInterval    time.Duration `yaml:"retry-interval,omitempty"             mapstructure:"retry-interval,omitempty"`
+	Address          string        `yaml:"address,omitempty"                    mapstructure:"address,omitempty"`
+	// TLSServerName is used to check server certificate. If TLSServerName is empty, the hostname used to contact the
+	// server is used.
 	// +optional
-	TLSServerName string `yaml:"tls-server-name,omitempty" mapstructure:"tls-server-name,omitempty"`
-	// InsecureSkipTLSVerify skips the validity check for the server's certificate. This will make your HTTPS connections insecure.
+	TLSServerName string `yaml:"tls-server-name,omitempty"            mapstructure:"tls-server-name,omitempty"`
+	// InsecureSkipTLSVerify skips the validity check for the server's certificate. This will make your HTTPS
+	// connections insecure.
 	// +optional
-	InsecureSkipTLSVerify bool `yaml:"insecure-skip-tls-verify,omitempty" mapstructure:"insecure-skip-tls-verify,omitempty"`
+	InsecureSkipTLSVerify bool `yaml:"insecure-skip-tls-verify,omitempty"   mapstructure:"insecure-skip-tls-verify,omitempty"`
 	// CertificateAuthority is the path to a cert file for the certificate authority.
 	// +optional
-	CertificateAuthority string `yaml:"certificate-authority,omitempty" mapstructure:"certificate-authority,omitempty"`
+	CertificateAuthority string `yaml:"certificate-authority,omitempty"      mapstructure:"certificate-authority,omitempty"`
 	// CertificateAuthorityData contains PEM-encoded certificate authority certificates.
 	// Overrides CertificateAuthority
 	// +optional
@@ -37,32 +39,32 @@ type Server struct {
 // This is use to tell the iam cluster who you are.
 type AuthInfo struct {
 	LocationOfOrigin  string
-	ClientCertificate string `yaml:"client-certificate,omitempty" mapstructure:"client-certificate,omitempty"`
+	ClientCertificate string `yaml:"client-certificate,omitempty"      mapstructure:"client-certificate,omitempty"`
 	// ClientCertificateData contains PEM-encoded data from a client cert file for TLS. Overrides ClientCertificate
 	// +optional
 	ClientCertificateData string `yaml:"client-certificate-data,omitempty" mapstructure:"client-certificate-data,omitempty"`
 	// ClientKey is the path to a client key file for TLS.
 	// +optional
-	ClientKey string `yaml:"client-key,omitempty" mapstructure:"client-key,omitempty"`
+	ClientKey string `yaml:"client-key,omitempty"              mapstructure:"client-key,omitempty"`
 	// ClientKeyData contains PEM-encoded data from a client key file for TLS. Overrides ClientKey
 	// +optional
-	ClientKeyData string `yaml:"client-key-data,omitempty" mapstructure:"client-key-data,omitempty"`
+	ClientKeyData string `yaml:"client-key-data,omitempty"         mapstructure:"client-key-data,omitempty"`
 	// Token is the bearer token for authentication to the iam cluster.
 	// +optional
-	Token string `yaml:"token,omitempty" mapstructure:"token,omitempty"`
+	Token string `yaml:"token,omitempty"                   mapstructure:"token,omitempty"`
 
 	Username string `yaml:"username,omitempty" mapstructure:"username,omitempty"`
 	Password string `yaml:"password,omitempty" mapstructure:"password,omitempty"`
 
-	SecretID  string `yaml:"secret-id,omitempty" mapstructure:"secret-id,omitempty"`
+	SecretID  string `yaml:"secret-id,omitempty"  mapstructure:"secret-id,omitempty"`
 	SecretKey string `yaml:"secret-key,omitempty" mapstructure:"secret-key,omitempty"`
 }
 
 // Config defines a config struct used by marmotedu-sdk-go.
 type Config struct {
 	APIVersion string    `yaml:"apiVersion,omitempty" mapstructure:"apiVersion,omitempty"`
-	AuthInfo   *AuthInfo `yaml:"user,omitempty" mapstructure:"user,omitempty"`
-	Server     *Server   `yaml:"server,omitempty" mapstructure:"server,omitempty"`
+	AuthInfo   *AuthInfo `yaml:"user,omitempty"       mapstructure:"user,omitempty"`
+	Server     *Server   `yaml:"server,omitempty"     mapstructure:"server,omitempty"`
 }
 
 // NewConfig is a convenience function that returns a new Config object with non-nil maps.

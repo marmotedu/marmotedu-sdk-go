@@ -21,5 +21,7 @@ func ParseTimeout(duration string) (time.Duration, error) {
 		return requestTimeout, nil
 	}
 
-	return 0, fmt.Errorf("invalid timeout value. Timeout must be a single integer in seconds, or an integer followed by a corresponding time unit (e.g. 1s | 2m | 3h)")
+	return 0, fmt.Errorf(
+		"invalid timeout value. Timeout must be a single integer in seconds, or an integer followed by a corresponding time unit (e.g. 1s | 2m | 3h)",
+	)
 }

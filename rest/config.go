@@ -128,13 +128,16 @@ type TLSClientConfig struct {
 
 	// NextProtos is a list of supported application level protocols, in order of preference.
 	// Used to populate tls.Config.NextProtos.
-	// To indicate to the server http/1.1 is preferred over http/2, set to ["http/1.1", "h2"] (though the server is free to ignore that preference).
+	// To indicate to the server http/1.1 is preferred over http/2, set to ["http/1.1", "h2"] (though the server is free
+	// to ignore that preference).
 	// To use only http/1.1, set to ["http/1.1"].
 	NextProtos []string
 }
 
-var _ fmt.Stringer = TLSClientConfig{}
-var _ fmt.GoStringer = TLSClientConfig{}
+var (
+	_ fmt.Stringer   = TLSClientConfig{}
+	_ fmt.GoStringer = TLSClientConfig{}
+)
 
 type sanitizedTLSClientConfig TLSClientConfig
 
@@ -297,8 +300,10 @@ func TLSConfigFor(c *Config) (*tls.Config, error) {
 // rootCertPool returns nil if caData is empty.  When passed along, this will mean "use system CAs".
 // When caData is not empty, it will be the ONLY information used in the CertPool.
 func rootCertPool(caData []byte) *x509.CertPool {
-	// What we really want is a copy of x509.systemRootsPool, but that isn't exposed.  It's difficult to build (see the go
-	// code for a look at the platform specific insanity), so we'll use the fact that RootCAs == nil gives us the system values
+	// What we really want is a copy of x509.systemRootsPool, but that isn't exposed.  It's difficult to build (see the
+	// go
+	// code for a look at the platform specific insanity), so we'll use the fact that RootCAs == nil gives us the system
+	// values
 	// It doesn't allow trusting either/or, but hopefully that won't be an issue
 	if len(caData) == 0 {
 		return nil

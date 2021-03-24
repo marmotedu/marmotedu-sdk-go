@@ -5,8 +5,7 @@
 package v1
 
 // The UserExpansion interface allows manually adding extra methods to the UserInterface.
-type UserExpansion interface {
-	// PatchStatus modifies the status of an existing node. It returns the copy
+type UserExpansion interface { // PatchStatus modifies the status of an existing node. It returns the copy
 	// of the node that the server returns, or an error.
 	// PatchStatus(ctx context.Context, nodeName string, data []byte) (*v1.Node, error)
 }

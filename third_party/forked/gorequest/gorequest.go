@@ -489,7 +489,8 @@ func (s *SuperAgent) Type(typeStr string) *SuperAgent {
 	return s
 }
 
-// Query function accepts either json string or strings which will form a query-string in url of GET method or body of POST method.
+// Query function accepts either json string or strings which will form a query-string in url of GET method or body of
+// POST method.
 // For example, making "/search?query=bicycle&size=50x50&weight=20kg" using GET method:
 //
 //      gorequest.New().
@@ -615,9 +616,12 @@ func (s *SuperAgent) TLSClientConfig(config *tls.Config) *SuperAgent {
 
 // Proxy function accepts a proxy url string to setup proxy url for any request.
 // It provides a convenience way to setup proxy which have advantages over usual old ways.
-// One example is you might try to set `http_proxy` environment. This means you are setting proxy up for all the requests.
-// You will not be able to send different request with different proxy unless you change your `http_proxy` environment again.
-// Another example is using Golang proxy setting. This is normal prefer way to do but too verbase compared to GoRequest's Proxy:
+// One example is you might try to set `http_proxy` environment. This means you are setting proxy up for all the
+// requests.
+// You will not be able to send different request with different proxy unless you change your `http_proxy` environment
+// again.
+// Another example is using Golang proxy setting. This is normal prefer way to do but too verbase compared to
+// GoRequest's Proxy:
 //
 //      gorequest.New().Proxy("http://myproxy:9999").
 //        Post("http://www.google.com").
@@ -669,14 +673,16 @@ func (s *SuperAgent) RedirectPolicy(policy func(req Request, via []Request) erro
 //        Send(`{ query: 'sushi' }`).
 //        End()
 //
-// While if you use at least one of querystring, GoRequest understands and automatically set the Content-Type to `application/x-www-form-urlencoded`
+// While if you use at least one of querystring, GoRequest understands and automatically set the Content-Type to
+// `application/x-www-form-urlencoded`
 //
 //      gorequest.New().
 //        Post("/search").
 //        Send("query=tonkatsu").
 //        End()
 //
-// So, if you want to strictly send json format, you need to use Type func to set it as `json` (Please see more details in Type function).
+// So, if you want to strictly send json format, you need to use Type func to set it as `json` (Please see more details
+// in Type function).
 // You can also do multiple chain of Send:
 //
 //      gorequest.New().
@@ -685,7 +691,8 @@ func (s *SuperAgent) RedirectPolicy(policy func(req Request, via []Request) erro
 //        Send(`{ wheel: '4'}`).
 //        End()
 //
-// From v0.2.0, Send function provide another convenience way to work with Struct type. You can mix and match it with json and query string:
+// From v0.2.0, Send function provide another convenience way to work with Struct type. You can mix and match it with
+// json and query string:
 //
 //      type BrowserVersionSupport struct {
 //        Chrome string
@@ -698,7 +705,8 @@ func (s *SuperAgent) RedirectPolicy(policy func(req Request, via []Request) erro
 //        Send(`{"Safari":"5.1.10"}`).
 //        End()
 //
-// If you have set Type to text or Content-Type to text/plain, content will be sent as raw string in body instead of form
+// If you have set Type to text or Content-Type to text/plain, content will be sent as raw string in body instead of
+// form
 //
 //      gorequest.New().
 //        Post("/greet").
@@ -753,8 +761,10 @@ func makeSliceOfReflectValue(v reflect.Value) (slice []interface{}) {
 	return slice
 }
 
-// SendSlice (similar to SendString) returns SuperAgent's itself for any next chain and takes content []interface{} as a parameter.
-// Its duty is to append slice of interface{} into s.SliceData ([]interface{}) which later changes into json array in the End() func.
+// SendSlice (similar to SendString) returns SuperAgent's itself for any next chain and takes content []interface{} as a
+// parameter.
+// Its duty is to append slice of interface{} into s.SliceData ([]interface{}) which later changes into json array in
+// the End() func.
 func (s *SuperAgent) SendSlice(content []interface{}) *SuperAgent {
 	s.SliceData = append(s.SliceData, content...)
 	return s
@@ -764,8 +774,10 @@ func (s *SuperAgent) SendMap(content interface{}) *SuperAgent {
 	return s.SendStruct(content)
 }
 
-// SendStruct (similar to SendString) returns SuperAgent's itself for any next chain and takes content interface{} as a parameter.
-// Its duty is to transfrom interface{} (implicitly always a struct) into s.Data (map[string]interface{}) which later changes into appropriate format such as json, form, text, etc. in the End() func.
+// SendStruct (similar to SendString) returns SuperAgent's itself for any next chain and takes content interface{} as a
+// parameter.
+// Its duty is to transfrom interface{} (implicitly always a struct) into s.Data (map[string]interface{}) which later
+// changes into appropriate format such as json, form, text, etc. in the End() func.
 func (s *SuperAgent) SendStruct(content interface{}) *SuperAgent {
 	if marshalContent, err := json.Marshal(content); err != nil {
 		s.Errors = append(s.Errors, err)
@@ -785,7 +797,8 @@ func (s *SuperAgent) SendStruct(content interface{}) *SuperAgent {
 }
 
 // SendString returns SuperAgent's itself for any next chain and takes content string as a parameter.
-// Its duty is to transform String into s.Data (map[string]interface{}) which later changes into appropriate format such as json, form, text, etc. in the End func.
+// Its duty is to transform String into s.Data (map[string]interface{}) which later changes into appropriate format such
+// as json, form, text, etc. in the End func.
 // Send implicitly uses SendString and you should use Send instead of this.
 func (s *SuperAgent) SendString(content string) *SuperAgent {
 	if !s.BounceToRawString {
@@ -842,7 +855,8 @@ type File struct {
 	Data      []byte
 }
 
-// SendFile function works only with type "multipart". The function accepts one mandatory and up to two optional arguments. The mandatory (first) argument is the file.
+// SendFile function works only with type "multipart". The function accepts one mandatory and up to two optional
+// arguments. The mandatory (first) argument is the file.
 // The function accepts a path to a file as string:
 //
 //      gorequest.New().
@@ -869,8 +883,10 @@ type File struct {
 //        SendFile(f).
 //        End()
 //
-// The first optional argument (second argument overall) is the filename, which will be automatically determined when file is a string (path) or a os.File.
-// When file is a []byte slice, filename defaults to "filename". In all cases the automatically determined filename can be overwritten:
+// The first optional argument (second argument overall) is the filename, which will be automatically determined when
+// file is a string (path) or a os.File.
+// When file is a []byte slice, filename defaults to "filename". In all cases the automatically determined filename can
+// be overwritten:
 //
 //      b, _ := ioutil.ReadFile("./example_file.ext")
 //      gorequest.New().
@@ -879,8 +895,10 @@ type File struct {
 //        SendFile(b, "my_custom_filename").
 //        End()
 //
-// The second optional argument (third argument overall) is the fieldname in the multipart/form-data request. It defaults to fileNUMBER (eg. file1), where number is ascending and starts counting at 1.
-// So if you send multiple files, the fieldnames will be file1, file2, ... unless it is overwritten. If fieldname is set to "file" it will be automatically set to fileNUMBER, where number is the greatest exsiting number+1.
+// The second optional argument (third argument overall) is the fieldname in the multipart/form-data request. It
+// defaults to fileNUMBER (eg. file1), where number is ascending and starts counting at 1.
+// So if you send multiple files, the fieldnames will be file1, file2, ... unless it is overwritten. If fieldname is set
+// to "file" it will be automatically set to fileNUMBER, where number is the greatest exsiting number+1.
 //
 //      b, _ := ioutil.ReadFile("./example_file.ext")
 //      gorequest.New().
@@ -965,7 +983,12 @@ func (s *SuperAgent) SendFile(file interface{}, args ...string) *SuperAgent {
 			return s
 		}
 
-		s.Errors = append(s.Errors, errors.New("SendFile currently only supports either a string (path/to/file), a slice of bytes (file content itself), or a os.File!"))
+		s.Errors = append(
+			s.Errors,
+			errors.New(
+				"SendFile currently only supports either a string (path/to/file), a slice of bytes (file content itself), or a os.File!",
+			),
+		)
 	}
 
 	return s
@@ -1041,9 +1064,12 @@ func changeMapToURLValues(data map[string]interface{}) url.Values {
 	return newUrlValues
 }
 
-// End is the most important function that you need to call when ending the chain. The request won't proceed without calling it.
-// End function returns Response which matchs the structure of Response type in Golang's http package (but without Body data). The body data itself returns as a string in a 2nd return value.
-// Lastly but worth noticing, error array (NOTE: not just single error value) is returned as a 3rd value and nil otherwise.
+// End is the most important function that you need to call when ending the chain. The request won't proceed without
+// calling it.
+// End function returns Response which matchs the structure of Response type in Golang's http package (but without Body
+// data). The body data itself returns as a string in a 2nd return value.
+// Lastly but worth noticing, error array (NOTE: not just single error value) is returned as a 3rd value and nil
+// otherwise.
 //
 // For example:
 //
@@ -1079,8 +1105,11 @@ func (s *SuperAgent) End(callback ...func(response Response, body string, errs [
 	return resp, bodyString, errs
 }
 
-// EndBytes should be used when you want the body as bytes. The callbacks work the same way as with `End`, except that a byte array is used instead of a string.
-func (s *SuperAgent) EndBytes(callback ...func(response Response, body []byte, errs []error)) (Response, []byte, []error) {
+// EndBytes should be used when you want the body as bytes. The callbacks work the same way as with `End`, except that a
+// byte array is used instead of a string.
+func (s *SuperAgent) EndBytes(
+	callback ...func(response Response, body []byte, errs []error),
+) (Response, []byte, []error) {
 	var (
 		errs []error
 		resp Response
@@ -1106,7 +1135,8 @@ func (s *SuperAgent) EndBytes(callback ...func(response Response, body []byte, e
 }
 
 func (s *SuperAgent) isRetryableRequest(resp Response) bool {
-	if s.Retryable.Enable && s.Retryable.Attempt < s.Retryable.RetryerCount && contains(resp.StatusCode, s.Retryable.RetryableStatus) {
+	if s.Retryable.Enable && s.Retryable.Attempt < s.Retryable.RetryerCount &&
+		contains(resp.StatusCode, s.Retryable.RetryableStatus) {
 		time.Sleep(s.Retryable.RetryerTime)
 		s.Retryable.Attempt++
 		return false
@@ -1123,8 +1153,12 @@ func contains(respStatus int, statuses []int) bool {
 	return false
 }
 
-// EndStruct should be used when you want the body as a struct. The callbacks work the same way as with `End`, except that a struct is used instead of a string.
-func (s *SuperAgent) EndStruct(v interface{}, callback ...func(response Response, v interface{}, body []byte, errs []error)) (Response, []byte, []error) {
+// EndStruct should be used when you want the body as a struct. The callbacks work the same way as with `End`, except
+// that a struct is used instead of a string.
+func (s *SuperAgent) EndStruct(
+	v interface{},
+	callback ...func(response Response, v interface{}, body []byte, errs []error),
+) (Response, []byte, []error) {
 	resp, body, errs := s.EndBytes()
 	if errs != nil {
 		return nil, body, errs

@@ -7,10 +7,9 @@ package v1
 import (
 	"context"
 
-	"github.com/ory/ladon"
-
 	authzv1 "github.com/marmotedu/api/authz/v1"
 	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
+	"github.com/ory/ladon"
 
 	rest "github.com/marmotedu/marmotedu-sdk-go/rest"
 )

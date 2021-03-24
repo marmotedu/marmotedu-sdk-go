@@ -95,7 +95,10 @@ func TestTypesMap(t *testing.T) {
 	}
 
 	if Types[TypeUrlencoded] != "application/x-www-form-urlencoded" {
-		t.Errorf(`Expected Types["urlencoded"] -> "application/x-www-form-urlencoded" | but got %s`, Types[TypeUrlencoded])
+		t.Errorf(
+			`Expected Types["urlencoded"] -> "application/x-www-form-urlencoded" | but got %s`,
+			Types[TypeUrlencoded],
+		)
 	}
 
 	if Types[TypeHTML] != "text/html" {
@@ -489,7 +492,11 @@ func TestConcurrently(t *testing.T) {
 				t.Errorf("Expected 'form_iteration' != %q; got %q", "", r.Form.Get("form_iteration"))
 			}
 			if r.Form.Get("form_iteration") != r.URL.Query().Get("iteration") {
-				t.Errorf("Expected 'form_iteration' == %q; got %q", r.URL.Query().Get("iteration"), r.Form.Get("form_iteration"))
+				t.Errorf(
+					"Expected 'form_iteration' == %q; got %q",
+					r.URL.Query().Get("iteration"),
+					r.Form.Get("form_iteration"),
+				)
 			}
 		}
 	}))
@@ -722,7 +729,11 @@ func testPostServer(t *testing.T) *httptest.Server {
 		case test_post_case4_send_string, test_post_case11_send_string_pointer:
 			t.Logf("case %v ", r.URL.Path)
 			if r.Header.Get("Content-Type") != "application/x-www-form-urlencoded" {
-				t.Error("Expected Header Content-Type -> application/x-www-form-urlencoded", "| but got", r.Header.Get("Content-Type"))
+				t.Error(
+					"Expected Header Content-Type -> application/x-www-form-urlencoded",
+					"| but got",
+					r.Header.Get("Content-Type"),
+				)
 			}
 			defer r.Body.Close()
 			body, _ := ioutil.ReadAll(r.Body)
@@ -749,7 +760,9 @@ func testPostServer(t *testing.T) *httptest.Server {
 			t.Logf("case %v ", test_post_case7_integration_send_json_struct)
 			defer r.Body.Close()
 			body, _ := ioutil.ReadAll(r.Body)
-			comparedBody := []byte(`{"Lower":{"Color":"green","Size":1.7},"Upper":{"Color":"red","Size":0},"a":"a","name":"Cindy"}`)
+			comparedBody := []byte(
+				`{"Lower":{"Color":"green","Size":1.7},"Upper":{"Color":"red","Size":0},"a":"a","name":"Cindy"}`,
+			)
 			if !bytes.Equal(body, comparedBody) {
 				t.Errorf(`Expected correct json but got ` + string(body))
 			}
@@ -771,11 +784,16 @@ func testPostServer(t *testing.T) *httptest.Server {
 			t.Logf("case %v ", r.URL.Path)
 			defer r.Body.Close()
 			body, _ := ioutil.ReadAll(r.Body)
-			comparedBody := []byte(`{"Bfalse":false,"BoolArray":[true,false],"Btrue":true,"Float":12.345,"FloatArray":[1.23,4.56,7.89],"Int":42,"IntArray":[1,2],"String":"a string","StringArray":["string1","string2"]}`)
+			comparedBody := []byte(
+				`{"Bfalse":false,"BoolArray":[true,false],"Btrue":true,"Float":12.345,"FloatArray":[1.23,4.56,7.89],"Int":42,"IntArray":[1,2],"String":"a string","StringArray":["string1","string2"]}`,
+			)
 			if !bytes.Equal(body, comparedBody) {
 				t.Errorf(`Expected correct json but got ` + string(body))
 			}
-		case test_post_case12_send_slice_string, test_post_case13_send_slice_string_pointer, test_post_case17_send_string_array, test_post_case18_send_string_array_pointer:
+		case test_post_case12_send_slice_string,
+			test_post_case13_send_slice_string_pointer,
+			test_post_case17_send_string_array,
+			test_post_case18_send_string_array_pointer:
 			t.Logf("case %v ", r.URL.Path)
 			defer r.Body.Close()
 			body, _ := ioutil.ReadAll(r.Body)
@@ -804,7 +822,10 @@ func testPostServer(t *testing.T) *httptest.Server {
 			if string(body) != "true" {
 				t.Error("Expected Body with \"true\"", "| but got", string(body))
 			}
-		case test_post_case20_send_byte_char, test_post_case21_send_byte_char_pointer, test_post_case22_send_byte_int, test_post_case22_send_byte_int_pointer:
+		case test_post_case20_send_byte_char,
+			test_post_case21_send_byte_char_pointer,
+			test_post_case22_send_byte_int,
+			test_post_case22_send_byte_int_pointer:
 			t.Logf("case %v ", r.URL.Path)
 			defer r.Body.Close()
 			body, _ := ioutil.ReadAll(r.Body)
@@ -823,7 +844,8 @@ func testPostServer(t *testing.T) *httptest.Server {
 			if len(values["param"]) != 4 {
 				t.Error("Expected Body with 4 params", "| but got", sbody)
 			}
-			if values["param"][0] != "4" || values["param"][1] != "3" || values["param"][2] != "2" || values["param"][3] != "1" {
+			if values["param"][0] != "4" || values["param"][1] != "3" || values["param"][2] != "2" ||
+				values["param"][3] != "1" {
 				t.Error("Expected Body with 4 params and values", "| but got", sbody)
 			}
 		case test_post_case24_send_query_and_request_body:
@@ -1336,10 +1358,18 @@ func TestMultipartRequest(t *testing.T) {
 			}
 		case case6_send_slice_string_with_custom_fieldname:
 			if len(r.MultipartForm.Value["my_custom_data"]) != 1 {
-				t.Error("Expected length of my_custom_data:JSON == 1", "| but got", len(r.MultipartForm.Value["my_custom_data"]))
+				t.Error(
+					"Expected length of my_custom_data:JSON == 1",
+					"| but got",
+					len(r.MultipartForm.Value["my_custom_data"]),
+				)
 			}
 			if r.MultipartForm.Value["my_custom_data"][0] != `["string1","string2"]` {
-				t.Error(`Expected 'my_custom_data' with ["string1","string2"]`, "| but got", r.MultipartForm.Value["my_custom_data"][0])
+				t.Error(
+					`Expected 'my_custom_data' with ["string1","string2"]`,
+					"| but got",
+					r.MultipartForm.Value["my_custom_data"][0],
+				)
 			}
 		case case8_integration_send_json_struct:
 			if len(r.MultipartForm.Value["query1"]) != 1 {
@@ -1367,7 +1397,10 @@ func TestMultipartRequest(t *testing.T) {
 			if r.MultipartForm.Value["param"][3] != "1" {
 				t.Error("Expected param:3:1", "| but got", r.MultipartForm.Value["param"][3])
 			}
-		case case10_send_file_by_path, case11_send_file_by_path_without_name, case14_send_file_by_content_with_name, case20_send_file_as_osfile:
+		case case10_send_file_by_path,
+			case11_send_file_by_path_without_name,
+			case14_send_file_by_content_with_name,
+			case20_send_file_as_osfile:
 			if len(r.MultipartForm.File) != 1 {
 				t.Error("Expected length of files:[] == 1", "| but got", len(r.MultipartForm.File))
 			}
@@ -1375,10 +1408,16 @@ func TestMultipartRequest(t *testing.T) {
 				t.Error("Expected Filename:LICENSE", "| but got", r.MultipartForm.File["file1"][0].Filename)
 			}
 			if r.MultipartForm.File["file1"][0].Header["Content-Type"][0] != "application/octet-stream" {
-				t.Error("Expected Header:Content-Type:application/octet-stream", "| but got", r.MultipartForm.File["file1"][0].Header["Content-Type"])
+				t.Error(
+					"Expected Header:Content-Type:application/octet-stream",
+					"| but got",
+					r.MultipartForm.File["file1"][0].Header["Content-Type"],
+				)
 			}
 			checkFile(t, r.MultipartForm.File["file1"][0])
-		case case10a_send_file_by_path_with_name, case10b_send_file_by_path_pointer, case21_send_file_as_osfile_with_name:
+		case case10a_send_file_by_path_with_name,
+			case10b_send_file_by_path_pointer,
+			case21_send_file_as_osfile_with_name:
 			if len(r.MultipartForm.File) != 1 {
 				t.Error("Expected length of files:[] == 1", "| but got", len(r.MultipartForm.File))
 			}
@@ -1397,7 +1436,11 @@ func TestMultipartRequest(t *testing.T) {
 				t.Error("Expected Filename:LICENSE", "| but got", r.MultipartForm.File["my_fieldname"][0].Filename)
 			}
 			if r.MultipartForm.File["my_fieldname"][0].Header["Content-Type"][0] != "application/octet-stream" {
-				t.Error("Expected Header:Content-Type:application/octet-stream", "| but got", r.MultipartForm.File["my_fieldname"][0].Header["Content-Type"])
+				t.Error(
+					"Expected Header:Content-Type:application/octet-stream",
+					"| but got",
+					r.MultipartForm.File["my_fieldname"][0].Header["Content-Type"],
+				)
 			}
 			checkFile(t, r.MultipartForm.File["my_fieldname"][0])
 		case case13_send_file_by_content_without_name, case13a_send_file_by_content_without_name_pointer:
@@ -1408,7 +1451,11 @@ func TestMultipartRequest(t *testing.T) {
 				t.Error("Expected Filename:filename", "| but got", r.MultipartForm.File["file1"][0].Filename)
 			}
 			if r.MultipartForm.File["file1"][0].Header["Content-Type"][0] != "application/octet-stream" {
-				t.Error("Expected Header:Content-Type:application/octet-stream", "| but got", r.MultipartForm.File["file1"][0].Header["Content-Type"])
+				t.Error(
+					"Expected Header:Content-Type:application/octet-stream",
+					"| but got",
+					r.MultipartForm.File["file1"][0].Header["Content-Type"],
+				)
 			}
 			checkFile(t, r.MultipartForm.File["file1"][0])
 		case case15_send_file_by_content_without_name_but_with_fieldname:
@@ -1423,10 +1470,15 @@ func TestMultipartRequest(t *testing.T) {
 				t.Error("Expected Filename:filename", "| but got", r.MultipartForm.File["my_fieldname"][0].Filename)
 			}
 			if r.MultipartForm.File["my_fieldname"][0].Header["Content-Type"][0] != "application/octet-stream" {
-				t.Error("Expected Header:Content-Type:application/octet-stream", "| but got", r.MultipartForm.File["my_fieldname"][0].Header["Content-Type"])
+				t.Error(
+					"Expected Header:Content-Type:application/octet-stream",
+					"| but got",
+					r.MultipartForm.File["my_fieldname"][0].Header["Content-Type"],
+				)
 			}
 			checkFile(t, r.MultipartForm.File["my_fieldname"][0])
-		case case16_send_file_by_content_with_name_and_with_fieldname, case22_send_file_as_osfile_with_name_and_with_fieldname:
+		case case16_send_file_by_content_with_name_and_with_fieldname,
+			case22_send_file_as_osfile_with_name_and_with_fieldname:
 			if len(r.MultipartForm.File) != 1 {
 				t.Error("Expected length of files:[] == 1", "| but got", len(r.MultipartForm.File))
 			}
@@ -1438,7 +1490,11 @@ func TestMultipartRequest(t *testing.T) {
 				t.Error("Expected Filename:MY_LICENSE", "| but got", r.MultipartForm.File["my_fieldname"][0].Filename)
 			}
 			if r.MultipartForm.File["my_fieldname"][0].Header["Content-Type"][0] != "application/octet-stream" {
-				t.Error("Expected Header:Content-Type:application/octet-stream", "| but got", r.MultipartForm.File["my_fieldname"][0].Header["Content-Type"])
+				t.Error(
+					"Expected Header:Content-Type:application/octet-stream",
+					"| but got",
+					r.MultipartForm.File["my_fieldname"][0].Header["Content-Type"],
+				)
 			}
 			checkFile(t, r.MultipartForm.File["my_fieldname"][0])
 		case case17_send_file_multiple_by_path_and_content_without_name:
@@ -1446,18 +1502,28 @@ func TestMultipartRequest(t *testing.T) {
 				t.Error("Expected length of files:[] == 2", "| but got", len(r.MultipartForm.File))
 			}
 			// depends on map iteration order
-			if r.MultipartForm.File["file1"][0].Filename != "LICENSE" && r.MultipartForm.File["file1"][0].Filename != "filename" {
+			if r.MultipartForm.File["file1"][0].Filename != "LICENSE" &&
+				r.MultipartForm.File["file1"][0].Filename != "filename" {
 				t.Error("Expected Filename:LICENSE||filename", "| but got", r.MultipartForm.File["file1"][0].Filename)
 			}
 			if r.MultipartForm.File["file1"][0].Header["Content-Type"][0] != "application/octet-stream" {
-				t.Error("Expected Header:Content-Type:application/octet-stream", "| but got", r.MultipartForm.File["file1"][0].Header["Content-Type"])
+				t.Error(
+					"Expected Header:Content-Type:application/octet-stream",
+					"| but got",
+					r.MultipartForm.File["file1"][0].Header["Content-Type"],
+				)
 			}
 			// depends on map iteration order
-			if r.MultipartForm.File["file2"][0].Filename != "LICENSE" && r.MultipartForm.File["file2"][0].Filename != "filename" {
+			if r.MultipartForm.File["file2"][0].Filename != "LICENSE" &&
+				r.MultipartForm.File["file2"][0].Filename != "filename" {
 				t.Error("Expected Filename:LICENSE||filename", "| but got", r.MultipartForm.File["file2"][0].Filename)
 			}
 			if r.MultipartForm.File["file2"][0].Header["Content-Type"][0] != "application/octet-stream" {
-				t.Error("Expected Header:Content-Type:application/octet-stream", "| but got", r.MultipartForm.File["file2"][0].Header["Content-Type"])
+				t.Error(
+					"Expected Header:Content-Type:application/octet-stream",
+					"| but got",
+					r.MultipartForm.File["file2"][0].Header["Content-Type"],
+				)
 			}
 			checkFile(t, r.MultipartForm.File["file1"][0])
 			checkFile(t, r.MultipartForm.File["file2"][0])
@@ -1466,18 +1532,28 @@ func TestMultipartRequest(t *testing.T) {
 				t.Error("Expected length of files:[] == 2", "| but got", len(r.MultipartForm.File))
 			}
 			// depends on map iteration order
-			if r.MultipartForm.File["file1"][0].Filename != "LICENSE" && r.MultipartForm.File["file1"][0].Filename != "MY_LICENSE" {
+			if r.MultipartForm.File["file1"][0].Filename != "LICENSE" &&
+				r.MultipartForm.File["file1"][0].Filename != "MY_LICENSE" {
 				t.Error("Expected Filename:LICENSE||MY_LICENSE", "| but got", r.MultipartForm.File["file1"][0].Filename)
 			}
 			if r.MultipartForm.File["file1"][0].Header["Content-Type"][0] != "application/octet-stream" {
-				t.Error("Expected Header:Content-Type:application/octet-stream", "| but got", r.MultipartForm.File["file1"][0].Header["Content-Type"])
+				t.Error(
+					"Expected Header:Content-Type:application/octet-stream",
+					"| but got",
+					r.MultipartForm.File["file1"][0].Header["Content-Type"],
+				)
 			}
 			// depends on map iteration order
-			if r.MultipartForm.File["file2"][0].Filename != "LICENSE" && r.MultipartForm.File["file2"][0].Filename != "MY_LICENSE" {
+			if r.MultipartForm.File["file2"][0].Filename != "LICENSE" &&
+				r.MultipartForm.File["file2"][0].Filename != "MY_LICENSE" {
 				t.Error("Expected Filename:LICENSE||MY_LICENSE", "| but got", r.MultipartForm.File["file2"][0].Filename)
 			}
 			if r.MultipartForm.File["file2"][0].Header["Content-Type"][0] != "application/octet-stream" {
-				t.Error("Expected Header:Content-Type:application/octet-stream", "| but got", r.MultipartForm.File["file2"][0].Header["Content-Type"])
+				t.Error(
+					"Expected Header:Content-Type:application/octet-stream",
+					"| but got",
+					r.MultipartForm.File["file2"][0].Header["Content-Type"],
+				)
 			}
 			checkFile(t, r.MultipartForm.File["file1"][0])
 			checkFile(t, r.MultipartForm.File["file2"][0])
@@ -1489,7 +1565,11 @@ func TestMultipartRequest(t *testing.T) {
 				t.Error("Expected Filename:LICENSE", "| but got", r.MultipartForm.File["file1"][0].Filename)
 			}
 			if r.MultipartForm.File["file1"][0].Header["Content-Type"][0] != "application/octet-stream" {
-				t.Error("Expected Header:Content-Type:application/octet-stream", "| but got", r.MultipartForm.File["file1"][0].Header["Content-Type"])
+				t.Error(
+					"Expected Header:Content-Type:application/octet-stream",
+					"| but got",
+					r.MultipartForm.File["file1"][0].Header["Content-Type"],
+				)
 			}
 			checkFile(t, r.MultipartForm.File["file1"][0])
 			if len(r.MultipartForm.Value["query1"]) != 1 {
@@ -1516,7 +1596,9 @@ func TestMultipartRequest(t *testing.T) {
 			}
 			checkFile(t, r.MultipartForm.File["file1"][0])
 			checkFile(t, r.MultipartForm.File["file2"][0])
-		case case24_send_file_with_name_with_spaces, case25_send_file_with_name_with_spaces_only, case27_send_file_with_fieldname_with_spaces_only:
+		case case24_send_file_with_name_with_spaces,
+			case25_send_file_with_name_with_spaces_only,
+			case27_send_file_with_fieldname_with_spaces_only:
 			if len(r.MultipartForm.File) != 1 {
 				t.Error("Expected length of files:[] == 1", "| but got", len(r.MultipartForm.File))
 			}
@@ -1961,21 +2043,25 @@ func TestEndStruct(t *testing.T) {
 
 	// Callback.
 	{
-		resp, bodyBytes, errs := New().Get(ts.URL).EndStruct(func(resp Response, v interface{}, body []byte, errs []error) {
-			if len(errs) > 0 {
-				t.Fatalf("Unexpected errors: %s", errs)
-			}
-			if resp.StatusCode != 200 {
-				t.Fatalf("Expected StatusCode=200, actual StatusCode=%v", resp.StatusCode)
-			}
-			if !reflect.DeepEqual(expStruct, resStruct) {
-				resBytes, _ := json.Marshal(resStruct)
-				t.Errorf("Expected body=%s, actual bodyBytes=%s", serverOutput, string(resBytes))
-			}
-			if !reflect.DeepEqual(body, serverOutput) {
-				t.Errorf("Expected bodyBytes=%s, actual bodyBytes=%s", serverOutput, string(body))
-			}
-		})
+		resp, bodyBytes, errs := New().Get(
+			ts.URL,
+		).EndStruct(
+			func(resp Response, v interface{}, body []byte, errs []error) {
+				if len(errs) > 0 {
+					t.Fatalf("Unexpected errors: %s", errs)
+				}
+				if resp.StatusCode != 200 {
+					t.Fatalf("Expected StatusCode=200, actual StatusCode=%v", resp.StatusCode)
+				}
+				if !reflect.DeepEqual(expStruct, resStruct) {
+					resBytes, _ := json.Marshal(resStruct)
+					t.Errorf("Expected body=%s, actual bodyBytes=%s", serverOutput, string(resBytes))
+				}
+				if !reflect.DeepEqual(body, serverOutput) {
+					t.Errorf("Expected bodyBytes=%s, actual bodyBytes=%s", serverOutput, string(body))
+				}
+			},
+		)
 		if len(errs) > 0 {
 			t.Fatalf("Unexpected errors: %s", errs)
 		}
@@ -2454,7 +2540,11 @@ func TestContentTypeInference(t *testing.T) {
 				t.Error("Expected non-nil request Header")
 			}
 			if r.Header.Get("Content-Type") != test.expectedHeader {
-				t.Errorf("Expected Header Content-Type -> %q | but got %q", test.expectedHeader, r.Header.Get("Content-Type"))
+				t.Errorf(
+					"Expected Header Content-Type -> %q | but got %q",
+					test.expectedHeader,
+					r.Header.Get("Content-Type"),
+				)
 			}
 		}))
 
@@ -2543,7 +2633,11 @@ func TestAsCurlCommand(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	expected := fmt.Sprintf(`curl -X 'PUT' -d '%v' -H 'Content-Type: application/json' '%v'`, strings.Replace(jsonData, " ", "", -1), endpoint)
+	expected := fmt.Sprintf(
+		`curl -X 'PUT' -d '%v' -H 'Content-Type: application/json' '%v'`,
+		strings.Replace(jsonData, " ", "", -1),
+		endpoint,
+	)
 	if curlComand != expected {
 		t.Fatalf("\nExpected curlCommand=%v\n   but actual result=%v", expected, curlComand)
 	}

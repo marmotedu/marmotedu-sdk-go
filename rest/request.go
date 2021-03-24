@@ -72,7 +72,10 @@ func NewRequest(c *RESTClient) *Request {
 	}
 
 	if authMethod > 1 {
-		r.err = fmt.Errorf("username/password or bearer token or secretID/secretKey may be set, but should use only one of them")
+		r.err = fmt.Errorf(
+			"username/password or bearer token or secretID/secretKey may be set, but should use only one of them",
+		)
+
 		return r
 	}
 
