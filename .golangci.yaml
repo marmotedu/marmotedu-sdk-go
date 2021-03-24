@@ -241,7 +241,6 @@ linters:
     - gosimple
     - govet
     - ineffassign
-    - interfacer
     - lll
     - misspell
     - nakedret
@@ -261,7 +260,6 @@ linters:
     - gocognit
     - godot
     - godox
-    - maligned
     - nestif
     - prealloc
     - gomodguard
