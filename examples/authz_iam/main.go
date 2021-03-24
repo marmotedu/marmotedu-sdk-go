@@ -23,7 +23,11 @@ import (
 func main() {
 	var iamconfig *string
 	if home := homedir.HomeDir(); home != "" {
-		iamconfig = flag.String("iamconfig", filepath.Join(home, ".iam", "config"), "(optional) absolute path to the iamconfig file")
+		iamconfig = flag.String(
+			"iamconfig",
+			filepath.Join(home, ".iam", "config"),
+			"(optional) absolute path to the iamconfig file",
+		)
 	} else {
 		iamconfig = flag.String("iamconfig", "", "absolute path to the iamconfig file")
 	}
