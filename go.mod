@@ -4,8 +4,8 @@ go 1.16
 
 require (
 	github.com/elazarl/goproxy v0.0.0-20210110162100-a92cc753f88e
-	github.com/marmotedu/api v0.0.1
-	github.com/marmotedu/component-base v0.0.2
+	github.com/marmotedu/api v1.0.0
+	github.com/marmotedu/component-base v1.0.0
 	github.com/marmotedu/errors v0.0.1
 	github.com/ory/ladon v1.2.0
 	github.com/pkg/errors v0.9.1
