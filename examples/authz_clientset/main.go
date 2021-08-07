@@ -45,8 +45,6 @@ func main() {
 		panic(err.Error())
 	}
 
-	authzClient := clientset.Iam().AuthzV1().Authz()
-
 	request := &ladon.Request{
 		Resource: "resources:articles:ladon-introduction",
 		Action:   "delete",
@@ -58,7 +56,7 @@ func main() {
 
 	// Authorize the request
 	fmt.Println("Authorize request...")
-	ret, err := authzClient.Authorize(context.TODO(), request, metav1.AuthorizeOptions{})
+	ret, err := clientset.Iam().AuthzV1().Authz().Authorize(context.TODO(), request, metav1.AuthorizeOptions{})
 	if err != nil {
 		panic(err.Error())
 	}
