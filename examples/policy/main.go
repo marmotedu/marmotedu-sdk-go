@@ -58,13 +58,15 @@ func main() {
 		ObjectMeta: metav1.ObjectMeta{
 			Name: "sdk",
 		},
-		Policy: ladon.DefaultPolicy{
-			Description: "description",
-			Subjects:    []string{"user"},
-			Effect:      ladon.AllowAccess,
-			Resources:   []string{"articles:<[0-9]+>"},
-			Actions:     []string{"create", "update"},
-			Conditions:  policyConditions,
+		Policy: v1.AuthzPolicy{
+			DefaultPolicy: ladon.DefaultPolicy{
+				Description: "description",
+				Subjects:    []string{"user"},
+				Effect:      ladon.AllowAccess,
+				Resources:   []string{"articles:<[0-9]+>"},
+				Actions:     []string{"create", "update"},
+				Conditions:  policyConditions,
+			},
 		},
 	}
 
@@ -103,13 +105,15 @@ func main() {
 		ObjectMeta: metav1.ObjectMeta{
 			Name: "sdk",
 		},
-		Policy: ladon.DefaultPolicy{
-			Description: "description - update",
-			Subjects:    []string{"user"},
-			Effect:      ladon.AllowAccess,
-			Resources:   []string{"articles:<[0-9]+>"},
-			Actions:     []string{"create", "update"},
-			Conditions:  policyConditions,
+		Policy: v1.AuthzPolicy{
+			DefaultPolicy: ladon.DefaultPolicy{
+				Description: "description - update",
+				Subjects:    []string{"user"},
+				Effect:      ladon.AllowAccess,
+				Resources:   []string{"articles:<[0-9]+>"},
+				Actions:     []string{"create", "update"},
+				Conditions:  policyConditions,
+			},
 		},
 	}
 	ret, err = policiesClient.Update(context.TODO(), policy, metav1.UpdateOptions{})
