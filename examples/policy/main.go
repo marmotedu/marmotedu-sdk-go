@@ -15,7 +15,7 @@ import (
 
 	"github.com/ory/ladon"
 
-	v1 "github.com/marmotedu/api/apiserver/v1"
+	v1 "github.com/marmotedu/iam/pkg/model/apiserver/v1"
 	metav1 "github.com/marmotedu/component-base/pkg/meta/v1"
 	"github.com/marmotedu/component-base/pkg/util/homedir"
 

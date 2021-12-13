@@ -5,7 +5,7 @@
 package v1
 
 import (
-	v1 "github.com/marmotedu/api/apiserver/v1"
+	v1 "github.com/marmotedu/iam/pkg/model/apiserver/v1"
 	"github.com/marmotedu/component-base/pkg/runtime"
 
 	"github.com/marmotedu/marmotedu-sdk-go/rest"
